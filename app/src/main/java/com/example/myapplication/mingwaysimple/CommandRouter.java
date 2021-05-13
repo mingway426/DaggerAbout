@@ -1,5 +1,9 @@
 package com.example.myapplication.mingwaysimple;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
-
+@RequiresApi(api = Build.VERSION_CODES.N)
 final class CommandRouter {
     private Map<String, Command> commands = new HashMap<>();
 
@@ -16,7 +20,8 @@ final class CommandRouter {
         this.commands = command;
     }
 
-    Command.Status Route(String input) {
+
+    Command.Result Route(String input) {
         List<String> inputs = split(input);
         if (inputs.isEmpty()) {
             return invalidCommand(input);
@@ -28,17 +33,17 @@ final class CommandRouter {
             return invalidCommand(input);
         }
 
-        Command.Status status = command.handleInput(inputs.subList(1,inputs.size()));
-        if(Command.Status.INVALID == status) {
+        Command.Result result = command.handleInput(inputs.subList(1,inputs.size()));
+        if(Command.Status.INVALID == result.status()) {
             System.out.printf(commandKey + " is invalid key");
         }
-        return status;
+        return result;
     }
 
-    private Command.Status invalidCommand(String input) {
+    private Command.Result invalidCommand(String input) {
         System.out.println(
                 String.format("couldn't understand \"%s\". please try again.", input));
-        return Command.Status.INVALID;
+        return Command.Result.invalid();
     }
 
     private static List<String> split(String string) {

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -31,14 +32,14 @@ public class DepositCommand implements Command{
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public Status handleInput(List<String> command) {
+    public Result handleInput(List<String> command) {
         if (command.size() != 2) {
-            return Status.INVALID;
+            return Result.invalid();
         }
 
         DataBase.Account account = dataBase.getAccount(command.get(0));
         account.depoist(new BigDecimal(command.get(1)));
         outputter.output(account.userName() + " now has : " +account.balance());
-        return null;
+        return Result.handled();
     }
 }

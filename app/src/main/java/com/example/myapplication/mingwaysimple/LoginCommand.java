@@ -20,10 +20,10 @@ public class LoginCommand extends SingleArgCommand {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    protected Status handleArg(String arg) {
+    protected Result handleArg(String arg) {
         outputter.output(arg + " is logged in. with balance = " + dataBase.getAccount(arg).balance());
 
-        return Status.HANDLED;
+        return Result.handled();
     }
 
     @Override

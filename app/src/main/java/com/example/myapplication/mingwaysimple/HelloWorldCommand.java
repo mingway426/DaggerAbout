@@ -20,11 +20,11 @@ public class HelloWorldCommand implements Command{
     }
 
     @Override
-    public Status handleInput(List<String> command) {
+    public Result handleInput(List<String> command) {
         if (!command.isEmpty()) {
-            return Status.INVALID;
+            return Result.invalid();
         }
         outputter.output("world!");
-        return Status.HANDLED;
+        return Result.handled();
     }
 }
