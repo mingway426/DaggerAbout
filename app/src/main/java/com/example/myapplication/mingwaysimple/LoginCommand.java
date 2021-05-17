@@ -12,10 +12,9 @@ public class LoginCommand extends SingleArgCommand {
     DataBase dataBase;
 
     @Inject
-    public LoginCommand(DataBase dataBase,Outputter outputter) {
+    public LoginCommand(DataBase dataBase, Outputter outputter) {
         this.outputter = outputter;
         this.dataBase = dataBase;
-        System.out.println("Creating a new " + this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -23,7 +22,7 @@ public class LoginCommand extends SingleArgCommand {
     protected Result handleArg(String arg) {
         outputter.output(arg + " is logged in. with balance = " + dataBase.getAccount(arg).balance());
 
-        return Result.handled();
+       return null;
     }
 
     @Override

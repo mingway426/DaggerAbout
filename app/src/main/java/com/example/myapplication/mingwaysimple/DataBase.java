@@ -17,7 +17,6 @@ public class DataBase {
 
     @Inject
     public DataBase() {
-        System.out.println("Creating a new " + this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
